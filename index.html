@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Academy - Explore The Universe of Code</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-space: #0a0a1a;
+            --nebula-purple: #1a0533;
+            --cosmic-blue: #0d1b3e;
+            --star-glow: #a855f7;
+            --aurora-cyan: #06b6d4;
+            --galaxy-pink: #ec4899;
+            --supernova-orange: #f97316;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(15, 15, 40, 0.7);
+            --card-border: rgba(168, 85, 247, 0.3);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--deep-space);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== STARFIELD BACKGROUND ===== */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .nebula {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .nebula-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--star-glow), transparent);
+            top: -100px;
+            right: -100px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .nebula-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--aurora-cyan), transparent);
+            bottom: -150px;
+            left: -100px;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        .nebula-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--galaxy-pink), transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 30s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(30px, -30px);
+            }
+
+            50% {
+                transform: translate(-20px, 20px);
+            }
+
+            75% {
+                transform: translate(15px, 15px);
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--star-glow), var(--aurora-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            -webkit-text-fill-color: initial;
+            background: none;
+            -webkit-background-clip: initial;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--star-glow), var(--aurora-cyan));
+            color: white;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.1);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 120px 2rem 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--star-glow), var(--aurora-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            margin-top: 1.2rem;
+            padding: 8px 20px;
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--aurora-cyan);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--star-glow), var(--aurora-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--star-glow);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.2), 0 0 30px rgba(168, 85, 247, 0.1);
+        }
+
+        .gallery-card .card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--cosmic-blue));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-card .card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(15, 15, 40, 0.9));
+        }
+
+        .gallery-card .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-web {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--star-glow);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .badge-mobile {
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--aurora-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .badge-data {
+            background: rgba(236, 72, 153, 0.2);
+            color: var(--galaxy-pink);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+        }
+
+        .badge-ai {
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--supernova-orange);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .badge-game {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .badge-iot {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .card-body h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+        }
+
+        .card-body p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(168, 85, 247, 0.15);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== REGISTRATION FORM ===== */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--star-glow), var(--aurora-cyan), var(--galaxy-pink), var(--star-glow));
+            border-radius: 21px;
+            z-index: -1;
+            opacity: 0.3;
+            background-size: 300% 300%;
+            animation: gradient-shift 8s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-group label .required {
+            color: var(--galaxy-pink);
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            background: rgba(10, 10, 26, 0.6);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--star-glow);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            background: rgba(10, 10, 26, 0.9);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(148, 163, 184, 0.5);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a855f7' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 6h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        .form-group select option {
+            background: var(--deep-space);
+            color: var(--text-primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .radio-label:hover {
+            color: var(--text-primary);
+        }
+
+        .radio-label input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--star-glow);
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--star-glow), var(--aurora-cyan));
+            color: white;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .btn-submit:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            background: linear-gradient(135deg, rgba(26, 5, 51, 0.95), rgba(13, 27, 62, 0.95));
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(20px);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-icon {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .modal p {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.btn-yes {
+            background: linear-gradient(135deg, var(--star-glow), var(--aurora-cyan));
+            color: white;
+        }
+
+        .modal-btn.btn-yes:hover {
+            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .modal-btn.btn-no {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-btn.btn-no:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+        }
+
+        /* ===== RESULT DISPLAY ===== */
+        .result-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(15px);
+            animation: slideUp 0.5s ease;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-header .success-icon {
+            font-size: 3.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .result-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--star-glow), var(--aurora-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .result-table tr {
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .result-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .result-table td {
+            padding: 14px 0;
+            font-size: 0.9rem;
+        }
+
+        .result-table td:first-child {
+            color: var(--text-secondary);
+            width: 180px;
+            font-weight: 500;
+            vertical-align: top;
+        }
+
+        .result-table td:last-child {
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        .result-lang-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--star-glow);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-back {
+            display: block;
+            width: 100%;
+            margin-top: 2rem;
+            padding: 14px;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            border-color: var(--star-glow);
+            color: var(--text-primary);
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        footer a {
+            color: var(--star-glow);
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container,
+            .result-container {
+                padding: 1.5rem;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .nav-container {
+                padding: 0;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+
+            .result-table td:first-child {
+                width: 120px;
+            }
+        }
+
+        /* ===== PAGE TRANSITIONS ===== */
+        .page {
+            display: none;
+            animation: fadeInPage 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SHOOTING STAR ===== */
+        .shooting-star {
+            position: fixed;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.8), transparent);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: shoot 2s linear infinite;
+            opacity: 0;
+        }
+
+        .shooting-star:nth-child(1) {
+            top: 15%;
+            left: 70%;
+            animation-delay: 0s;
+            animation-duration: 2.5s;
+        }
+
+        .shooting-star:nth-child(2) {
+            top: 35%;
+            left: 40%;
+            animation-delay: 4s;
+            animation-duration: 2s;
+        }
+
+        .shooting-star:nth-child(3) {
+            top: 65%;
+            left: 80%;
+            animation-delay: 8s;
+            animation-duration: 3s;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0) rotate(-35deg);
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            30% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateX(-500px) translateY(200px) rotate(-35deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== SCROLL BAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-space);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--star-glow);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--aurora-cyan);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- STARFIELD -->
+    <div class="starfield" id="starfield"></div>
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('gallery')">
+                <span class="logo-icon">🚀</span>
+                CODING ACADEMY
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" id="btn-gallery" onclick="showPage('gallery')">🌌 Gallery</button>
+                <button class="nav-btn" id="btn-register" onclick="showPage('register')">📝 Pendaftaran</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== GALLERY PAGE ===== -->
+    <div class="page active" id="page-gallery">
+        <div class="hero">
+            <h1>🌠 Explore The Universe of Code</h1>
+            <p>Jelajahi galaksi pemrograman bersama Coding Academy. Pelajari berbagai teknologi terkini dan raih
+                bintang-bintang di dunia digital!</p>
+            <div class="tagline">✨ Kurikulum 2025/2026 — Batch Stellar Edition</div>
+        </div>
+        <div class="content">
+            <h2 class="section-title">🔭 Gallery Kegiatan</h2>
+            <p class="section-subtitle">Momen-momen inspiratif dari pelatihan kami</p>
+            <div class="gallery-grid">
+                <!-- Card 1 -->
+                <div class="gallery-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop"
+                            alt="Web Development"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='💻';">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge badge-web">Web Development</span>
+                        <h3>Pelatihan Full-Stack Web Development</h3>
+                        <p>Peserta mempelajari HTML, CSS, JavaScript, React, dan Node.js untuk membangun aplikasi web
+                            modern yang responsif dan interaktif.</p>
+                        <div class="card-meta">
+                            <span>📅 20 - 25 Okt 2025</span>
+                            <span>👥 45 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="gallery-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop"
+                            alt="Mobile Development"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='📱';">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge badge-mobile">Mobile Development</span>
+                        <h3>Workshop Flutter & Dart</h3>
+                        <p>Membangun aplikasi mobile cross-platform menggunakan Flutter. Dari dasar widget hingga state
+                            management dan integrasi API.</p>
+                        <div class="card-meta">
+                            <span>📅 1 - 5 Nov 2025</span>
+                            <span>👥 38 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="gallery-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
+                            alt="Data Science" onerror="this.style.display='none'; this.parentElement.innerHTML='📊';">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge badge-data">Data Science</span>
+                        <h3>Bootcamp Data Science & Analytics</h3>
+                        <p>Mengolah dan menganalisis data menggunakan Python, Pandas, dan berbagai tools visualisasi.
+                            Dilengkapi project nyata dari industri.</p>
+                        <div class="card-meta">
+                            <span>📅 10 - 15 Nov 2025</span>
+                            <span>👥 52 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="gallery-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop"
+                            alt="AI & Machine Learning"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='🤖';">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge badge-ai">AI & Machine Learning</span>
+                        <h3>Workshop AI & Machine Learning</h3>
+                        <p>Peserta belajar membangun model machine learning, neural networks, dan implementasi AI untuk
+                            menyelesaikan permasalahan dunia nyata.</p>
+                        <div class="card-meta">
+                            <span>📅 20 - 28 Nov 2025</span>
+                            <span>👥 35 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="gallery-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1556438064-2d7646166914?w=600&h=400&fit=crop"
+                            alt="Game Development"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='🎮';">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge badge-game">Game Development</span>
+                        <h3>Pelatihan Game Development Unity</h3>
+                        <p>Membuat game 2D dan 3D menggunakan Unity Engine dan bahasa C#. Peserta berhasil membuat
+                            prototype game mereka sendiri.</p>
+                        <div class="card-meta">
+                            <span>📅 5 - 10 Des 2025</span>
+                            <span>👥 30 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="gallery-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=600&h=400&fit=crop"
+                            alt="IoT" onerror="this.style.display='none'; this.parentElement.innerHTML='🔧';">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge badge-iot">IoT & Embedded</span>
+                        <h3>Hackathon IoT & Embedded Systems</h3>
+                        <p>Kompetisi membangun solusi IoT menggunakan Arduino, Raspberry Pi, dan sensor. Tim terbaik
+                            memenangkan beasiswa coding intensif.</p>
+                        <div class="card-meta">
+                            <span>📅 15 - 17 Des 2025</span>
+                            <span>👥 60 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== REGISTRATION PAGE ===== -->
+    <div class="page" id="page-register">
+        <div class="hero">
+            <h1>🛸 Daftar Sekarang</h1>
+            <p>Bergabunglah dengan ribuan calon developer yang telah memulai perjalanan coding mereka bersama kami</p>
+            <div class="tagline">🌟 Pendaftaran Batch 2026 Telah Dibuka!</div>
+        </div>
+        <div class="content">
+            <h2 class="section-title">📋 Form Pendaftaran</h2>
+            <p class="section-subtitle">Lengkapi data diri Anda untuk mendaftar</p>
+
+            <!-- FORM -->
+            <div class="form-container" id="form-container">
+                <form id="registrationForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>NIK (Nomor Induk Kependudukan) <span class="required">*</span></label>
+                        <input type="text" id="nik" name="nik" placeholder="Masukkan 16 digit NIK" maxlength="16"
+                            pattern="\d{16}" title="NIK harus 16 digit angka" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nama Lengkap <span class="required">*</span></label>
+                        <input type="text" id="namaLengkap" name="namaLengkap" placeholder="Masukkan nama lengkap Anda"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jenis Kelamin <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="jenisKelamin" value="Laki-laki" required>
+                                Laki-laki
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="jenisKelamin" value="Perempuan">
+                                Perempuan
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>No. HP <span class="required">*</span></label>
+                        <input type="tel" id="noHp" name="noHp" placeholder="Contoh: 08123456789" pattern="^08\d{8,12}$"
+                            title="Nomor HP harus dimulai 08 dan 10-14 digit" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alamat <span class="required">*</span></label>
+                        <textarea id="alamat" name="alamat" placeholder="Masukkan alamat lengkap Anda"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bahasa Pemrograman yang Diminati <span class="required">*</span></label>
+                        <select id="bahasaPemrograman" name="bahasaPemrograman" required>
+                            <option value="" disabled selected>-- Pilih Bahasa Pemrograman --</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="Java">Java</option>
+                            <option value="C++">C++</option>
+                            <option value="C#">C#</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Dart (Flutter)">Dart (Flutter)</option>
+                            <option value="Go">Go</option>
+                            <option value="Kotlin">Kotlin</option>
+                            <option value="Swift">Swift</option>
+                            <option value="Rust">Rust</option>
+                            <option value="TypeScript">TypeScript</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-submit">🚀 DAFTAR SEKARANG</button>
+                </form>
+            </div>
+
+            <!-- RESULT -->
+            <div class="result-container hidden" id="result-container">
+                <div class="result-header">
+                    <div class="success-icon">🎉</div>
+                    <h3>Pendaftaran Berhasil!</h3>
+                    <p>Berikut adalah data yang telah Anda daftarkan</p>
+                </div>
+                <table class="result-table">
+                    <tr>
+                        <td>📌 NIK</td>
+                        <td id="result-nik"></td>
+                    </tr>
+                    <tr>
+                        <td>👤 Nama Lengkap</td>
+                        <td id="result-nama"></td>
+                    </tr>
+                    <tr>
+                        <td>⚧ Jenis Kelamin</td>
+                        <td id="result-jk"></td>
+                    </tr>
+                    <tr>
+                        <td>📞 No. HP</td>
+                        <td id="result-hp"></td>
+                    </tr>
+                    <tr>
+                        <td>🏠 Alamat</td>
+                        <td id="result-alamat"></td>
+                    </tr>
+                    <tr>
+                        <td>💻 Bahasa Pemrograman</td>
+                        <td id="result-bahasa"></td>
+                    </tr>
+                </table>
+                <button class="btn-back" onclick="backToForm()">← Kembali ke Form Pendaftaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CONFIRM MODAL ===== -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal">
+            <div class="modal-icon">🛸</div>
+            <h3>Konfirmasi Pendaftaran</h3>
+            <p>Apakah Anda sudah yakin untuk menyimpan?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn btn-no" onclick="closeModal()">Tidak</button>
+                <button class="modal-btn btn-yes" onclick="confirmSave()">Ya, Simpan!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 <strong>Coding Academy</strong> — Explore The Universe of Code 🚀</p>
+    </footer>
+
+    <script>
+        // ===== GENERATE STARS =====
+        function generateStars() {
+            const starfield = document.getElementById('starfield');
+            const starCount = 200;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--duration', (Math.random() * 3 + 1) + 's');
+                star.style.animationDelay = Math.random() * 3 + 's';
+
+                // Random star colors
+                const colors = ['#ffffff', '#a855f7', '#06b6d4', '#ec4899', '#fbbf24'];
+                star.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                starfield.appendChild(star);
+            }
+        }
+        generateStars();
+
+        // ===== PAGE NAVIGATION =====
+        let formData = {};
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+            if (page === 'gallery') {
+                document.getElementById('page-gallery').classList.add('active');
+                document.getElementById('btn-gallery').classList.add('active');
+            } else {
+                document.getElementById('page-register').classList.add('active');
+                document.getElementById('btn-register').classList.add('active');
+                // Reset to show form if result is visible
+                document.getElementById('form-container').classList.remove('hidden');
+                document.getElementById('result-container').classList.add('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== FORM HANDLING =====
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const form = document.getElementById('registrationForm');
+
+            // Gather form data
+            formData = {
+                nik: document.getElementById('nik').value.trim(),
+                nama: document.getElementById('namaLengkap').value.trim(),
+                jenisKelamin: document.querySelector('input[name="jenisKelamin"]:checked')?.value || '',
+                noHp: document.getElementById('noHp').value.trim(),
+                alamat: document.getElementById('alamat').value.trim(),
+                bahasa: document.getElementById('bahasaPemrograman').value
+            };
+
+            // Validate
+            if (!formData.nik || !formData.nama || !formData.jenisKelamin || !formData.noHp || !formData.alamat || !formData.bahasa) {
+                alert('Mohon lengkapi semua field yang diperlukan!');
+                return;
+            }
+
+            // Show confirmation modal
+            document.getElementById('confirmModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').classList.remove('show');
+        }
+
+        function confirmSave() {
+            closeModal();
+
+            // Display results
+            document.getElementById('result-nik').textContent = formData.nik;
+            document.getElementById('result-nama').textContent = formData.nama;
+            document.getElementById('result-jk').textContent = formData.jenisKelamin;
+            document.getElementById('result-hp').textContent = formData.noHp;
+            document.getElementById('result-alamat').textContent = formData.alamat;
+            document.getElementById('result-bahasa').innerHTML = `<span class="result-lang-badge">${formData.bahasa}</span>`;
+
+            // Toggle visibility
+            document.getElementById('form-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
+
+            // Scroll to result
+            document.getElementById('result-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function backToForm() {
+            document.getElementById('form-container').classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+            document.getElementById('registrationForm').reset();
+            document.getElementById('form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ===== NIK INPUT - NUMBERS ONLY =====
+        document.getElementById('nik').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // ===== NO HP INPUT - NUMBERS ONLY =====
+        document.getElementById('noHp').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Close modal on overlay click
+        document.getElementById('confirmModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+
+</html>
